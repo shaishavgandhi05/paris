@@ -20,7 +20,7 @@ branches:
 notifications:
   email: false
 
-script: "./gradlew check"
+script: "./gradlew test connectedAndroidTest"
 
 cache:
   directories:
