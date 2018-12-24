@@ -1,15 +1,5 @@
 language: android
 
-android:
-  components:
-  - tools
-  - platform-tools
-  - build-tools-28.0.3
-  - android-28
-  - extra-google-google_play_services
-  - extra-android-m2repository
-  - extra-google-m2repository
-
 jdk:
 - oraclejdk8
 
@@ -25,6 +15,8 @@ before_install:
 - echo no | avdmanager create avd --force -n test -k "system-images;android-18;default;armeabi-v7a"
 - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window > /dev/null 2>&1 &
 
+install: ./gradlew build assembleAndroidTest --stacktrace
+
 before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82
@@ -36,7 +28,7 @@ branches:
 notifications:
   email: false
 
-script: "./gradlew test connectedAndroidTest"
+script: "./gradlew test connectedAndroidTest --stacktrace"
 
 cache:
   directories:
